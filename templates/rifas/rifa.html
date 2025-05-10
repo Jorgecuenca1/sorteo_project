@@ -362,10 +362,14 @@
   }
 
   function redirigirWhatsApp() {
-    const asesorTelefono = "{{ rifa.encargado }}";
-    const mensaje = encodeURIComponent("Hola, estoy interesado en reservar un número de la rifa {{ rifa.nombre }}.");
+    const asesorTelefono = "{{ rifa.numeroasesor }}";
+    const rifaNombre = encodeURIComponent("{{ rifa.nombre }}");
+    const puestoSeleccionado = modalNumero.textContent; // Toma el número del modal abierto
+    const mensaje = encodeURIComponent(`Hola, estoy interesado en reservar la posición ${puestoSeleccionado} de la rifa "${rifaNombre}".`);
+
     window.open(`https://wa.me/57${asesorTelefono}?text=${mensaje}`, '_blank');
-  }
+}
+
 
   form.addEventListener("submit", function(e) {
     e.preventDefault();

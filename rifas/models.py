@@ -12,6 +12,7 @@ class Rifa(models.Model):
     qr = models.ImageField(upload_to='qr/', blank=True, null=True)
     cuenta = models.CharField(max_length=100)
     numerocuenta = models.CharField(max_length=100)
+    numeroasesor= models.CharField(max_length=100)
 
     def __str__(self):
         return self.nombre
