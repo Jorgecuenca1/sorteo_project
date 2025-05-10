@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-7b=slwa+$0vt!7pnwx97b20pnu^=0!z70c%c90sy07fx6wposr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*','betganamax.com','https://betganamax.com','https://www.betganamax.com']
 
 
 # Application definition
@@ -50,6 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://betganamax.com"
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://betganamax.com','https://www.betganamax.com'
+]
 ROOT_URLCONF = 'sorteo_project.urls'
 
 TEMPLATES = [
