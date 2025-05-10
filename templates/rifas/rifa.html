@@ -1,0 +1,377 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ rifa.nombre }} | Rifas Meta Colombia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #e1f5fe;
+      color: #fff;
+    }
+
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 2px 8px var(--shadow);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-dark); /* Verde oscuro como en index */
+      text-decoration: none;
+    }
+
+
+   .nav-link {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #222; /* Mismo color de texto que en index.html */
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--accent-dark); /* Al pasar el cursor, se mantiene consistente */
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--accent-dark); /* Mismo color del logo que en index.html */
+  text-decoration: none;
+}
+
+
+
+    /* RIFA CARD */
+    .rifa-card {
+      max-width: 1200px;
+      margin: 40px auto;
+      background: #2d82ff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      padding: 30px;
+      color: #fff;
+    }
+
+    .rifa-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .rifa-header img {
+      flex: 1 1 300px;
+      max-width: 300px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .rifa-header .info {
+      flex: 2;
+    }
+
+    .rifa-header h1 { margin-bottom: 10px; font-size: 2rem; color: #fff; }
+    .rifa-header p { margin-bottom: 6px; color: #f0f0f0; }
+
+    /* TABLERO */
+    .rifa-tablero {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .grid-posiciones {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+      padding: 20px;
+      background: #1e88e5;
+      border-radius: 12px;
+    }
+
+    .puesto {
+      width: 80px;
+      height: 80px;
+      background: #0edc39;
+      color: white;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 2px solid #0edc39;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .puesto:hover {
+      background: #0cc432;
+      transform: scale(1.05);
+    }
+
+    .puesto.reservado {
+      background: #ab262d;
+      color: white;
+      cursor: not-allowed;
+    }
+
+    /* MODAL */
+    .btn-opcion {
+      background-color: #4caf50;
+      color: white;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-opcion:hover { background-color: #388e3c; }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s ease-in-out;
+      color: #333;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .img-pago {
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover { background-color: #388e3c; }
+
+    /* WHATSAPP FLOAT */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .whatsapp-float:hover { background-color: #128c7e; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    footer {
+      background: #f9f9f9;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 40px;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="logo">🎟️ Rifas Meta</a>
+    <div>
+      <a href="/" class="nav-link">Inicio</a>
+    </div>
+  </div>
+</nav>
+
+<!-- RIFA CARD -->
+<div class="rifa-card">
+  <div class="rifa-header">
+    <img src="{{ rifa.caratula.url }}" alt="Carátula de la rifa">
+    <div class="info">
+      <h1>{{ rifa.nombre }}</h1>
+      <p>{{ rifa.descripcion }}</p>
+      <p><strong>Encargado:</strong> {{ rifa.encargado }}</p>
+      <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha }}</p>
+    </div>
+  </div>
+
+  <div class="rifa-tablero">
+    <h2>Selecciona tu número</h2>
+    <div class="grid-posiciones" role="grid">
+      {% for pos in posiciones %}
+      <div class="puesto {% if pos.reservado %}reservado{% endif %}"
+           role="gridcell"
+           tabindex="{% if not pos.reservado %}0{% endif %}"
+           aria-disabled="{{ pos.reservado|yesno:'true,false' }}"
+           onclick="{% if not pos.reservado %}openModal({{ pos.id }}, '{{ pos.numero|stringformat:'02d' }}'){% endif %}">
+        <strong>{{ pos.numero|stringformat:"02d" }}</strong>
+        {% if pos.reservado %}
+        <small>{{ pos.nombre_completo }}</small>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <h3>Reservar posición <span id="modalNumero"></span></h3>
+
+    <div id="opcionesPago">
+      <button class="btn-opcion" onclick="redirigirWhatsApp()">💬 Pagar con Asesor</button>
+      <button class="btn-opcion" onclick="mostrarFormulario()">💳 Pago en Línea</button>
+    </div>
+
+    <form id="formularioReserva" method="post" enctype="multipart/form-data" style="display:none;">
+      {% csrf_token %}
+      <input type="text" name="nombre" placeholder="Nombre completo" required>
+      <input type="email" name="correo" placeholder="Correo electrónico" required>
+      <input type="text" name="celular" placeholder="Número de celular" required>
+
+      <p><strong>Cuenta a pagar:</strong> {{ rifa.cuenta }} - {{ rifa.numerocuenta }}</p>
+
+      {% if rifa.qr %}
+        <img src="{{ rifa.qr.url }}" alt="Código QR de pago" class="img-pago">
+      {% endif %}
+
+      <label for="comprobante">Comprobante de pago:</label>
+      <input type="file" name="comprobante" accept="image/*" required>
+      <button type="submit">Confirmar reserva</button>
+    </form>
+  </div>
+</div>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a href="https://wa.me/57{{ rifa.encargado }}" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">💬</a>
+<footer>
+  <p>&copy; 2025 Rifas Meta Colombia — Todos los derechos reservados.</p>
+  <p>Contacto: info@rifasmeta.com | WhatsApp: +57 300 123 4567</p>
+</footer>
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  let modal = document.getElementById("modal");
+  let modalNumero = document.getElementById("modalNumero");
+  let form = document.getElementById("formularioReserva");
+  let opcionesPago = document.getElementById("opcionesPago");
+  let currentId = null;
+
+  function openModal(id, numero) {
+    currentId = id;
+    modalNumero.textContent = numero;
+    form.style.display = "none";
+    opcionesPago.style.display = "block";
+    modal.style.display = "flex";
+  }
+
+  function cerrarModal() {
+    modal.style.display = "none";
+    form.reset();
+  }
+
+  function mostrarFormulario() {
+    opcionesPago.style.display = "none";
+    form.style.display = "block";
+  }
+
+  function redirigirWhatsApp() {
+    const asesorTelefono = "{{ rifa.encargado }}";
+    const mensaje = encodeURIComponent("Hola, estoy interesado en reservar un número de la rifa {{ rifa.nombre }}.");
+    window.open(`https://wa.me/57${asesorTelefono}?text=${mensaje}`, '_blank');
+  }
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    axios.post(`/reservar/${currentId}/`, formData)
+      .then(response => {
+        alert("¡Reserva completada con éxito!");
+        window.location.reload();
+      })
+      .catch(error => {
+        alert("Ocurrió un error al hacer la reserva.");
+      });
+  });
+
+  window.onclick = function(event) {
+    if (event.target == modal) cerrarModal();
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sorteo{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-container">
+    <h2 class="logo">🎟️ Sorteo</h2>
+    <span>Meta Colombia</span>
+  </div>
+</nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sorteo Meta Colombia. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

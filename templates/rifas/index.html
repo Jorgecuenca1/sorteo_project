@@ -1,0 +1,309 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio | Rifas Meta Colombia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --accent: #4CAF50;
+      --accent-dark: #388E3C;
+      --text-dark: #222;
+      --text-light: #fff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 2px 8px var(--shadow);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent-dark);
+      text-decoration: none;
+    }
+    .nav-link {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .nav-link:hover { color: var(--accent-dark); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(to right, #4CAF50, #81C784);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
+
+    /* SLIDER */
+    .slider { background: #fff; padding: 40px 0; overflow: hidden; }
+    .slides {
+      display: flex;
+      gap: 20px;
+      animation: scroll 15s linear infinite;
+      width: fit-content;
+    }
+    .slides img {
+      width: 300px;
+      height: 200px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* INFO SECTION */
+    .info-section {
+      text-align: center;
+      padding: 60px 20px;
+      background: #ffffff;
+    }
+    .info-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: var(--accent-dark);
+    }
+    .info-section p {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    /* CONTAINER */
+    .container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    /* CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 16px;
+      box-shadow: 0 8px 16px var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px var(--shadow);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 20px;
+      flex: 1;
+    }
+    .card-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #2e7d32;
+    }
+    .card-content p {
+      font-size: 0.95em;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    .card-footer {
+      padding: 0 20px 20px;
+    }
+    .btn {
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+    .btn:hover { background: var(--accent-dark); }
+
+    /* FOOTER */
+    footer {
+      background: #f9f9f9;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 40px;
+      border-top: 1px solid #ddd;
+    }
+    /* CÓMO FUNCIONA */
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.step-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+}
+
+.step-card h3 {
+  color: var(--accent-dark);
+  margin-bottom: 10px;
+}
+
+.step-card p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="logo">🎟️ Rifas Meta</a>
+    <div>
+      <a href="/" class="nav-link">Inicio</a>
+      <a href="#about" class="nav-link">Nosotros</a>
+      <a href="#contact" class="nav-link">Contacto</a>
+      <a href="#how-to-use" class="nav-link">¿Como funciona?</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>Participa y Gana con Nuestras Rifas</h1>
+  <p>¡Premios increíbles cada semana! Apoya nuestras causas sociales y llévate algo grande.</p>
+</header>
+<!-- LISTA DE RIFAS -->
+<div class="container">
+  <h2>Rifas Disponibles</h2>
+  <div class="grid">
+    {% for rifa in rifas %}
+    <div class="card">
+      <img src="{{ rifa.caratula.url }}" alt="{{ rifa.nombre }}">
+      <div class="card-content">
+        <h3>{{ rifa.nombre }}</h3>
+        <p>{{ rifa.descripcion|truncatechars:120 }}</p>
+        <p><strong>Fecha del sorteo:</strong><br>{{ rifa.fecha }}</p>
+      </div>
+      <div class="card-footer">
+        <a href="{% url 'rifa' rifa.id %}" class="btn">Ver Rifa</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- INFORMACIÓN ADICIONAL -->
+<section class="info-section" id="about">
+  <h2>¿Quiénes Somos?</h2>
+  <p>Rifas Meta Colombia es una iniciativa que combina entretenimiento con apoyo a causas sociales.
+     Cada rifa está pensada para ofrecer premios atractivos mientras colaboras con programas de educación y salud en comunidades vulnerables.</p>
+  <p>¡Gracias a personas como tú, seguimos transformando vidas!</p>
+</section>
+
+<!-- SLIDER Dinámico con Imágenes de Rifas -->
+<section class="slider">
+  <div class="slides">
+    {% for rifa in rifas %}
+      <img src="{{ rifa.caratula.url }}" alt="{{ rifa.nombre }}">
+    {% endfor %}
+  </div>
+</section>
+<!-- CÓMO FUNCIONA -->
+<section class="info-section" id="how-to-use">
+  <h2>¿Cómo Funciona?</h2>
+  <p>Participar en nuestras rifas es muy fácil. Sigue estos simples pasos y entra en la posibilidad de ganar premios increíbles:</p>
+
+  <div class="steps-container">
+    <div class="step-card">
+      <h3>1️⃣ Elige la Rifa</h3>
+      <p>Explora las rifas disponibles y selecciona la que más te interese.</p>
+    </div>
+    <div class="step-card">
+      <h3>2️⃣ Selecciona tu Número</h3>
+      <p>Escoge tu número de la suerte dentro de la rifa seleccionada. ¡Recuerda que cada número es único!</p>
+    </div>
+    <div class="step-card">
+      <h3>3️⃣ Realiza el Pago</h3>
+      <p>Escoge entre pago con asesor vía WhatsApp o pago en línea. ¡Todo es seguro y rápido!</p>
+    </div>
+    <div class="step-card">
+      <h3>4️⃣ ¡Espera el Sorteo!</h3>
+      <p>Revisa la fecha del sorteo y prepárate para ganar. Publicamos los resultados en nuestra web y redes sociales.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer id="contact">
+  <p>&copy; 2025 Rifas Meta Colombia — Todos los derechos reservados.</p>
+  <p>Contacto: info@rifasmeta.com | WhatsApp: +57 300 123 4567</p>
+</footer>
+
+</body>
+</html>
