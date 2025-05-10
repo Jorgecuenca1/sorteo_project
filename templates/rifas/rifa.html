@@ -109,19 +109,31 @@
     }
 
     .puesto {
-      width: 80px;
-      height: 80px;
-      background: #0edc39;
-      color: white;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      border: 2px solid #0edc39;
-      cursor: pointer;
-      transition: transform 0.2s ease-in-out;
-    }
+  width: 80px;
+  height: 80px;
+  background: #0edc39;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column; /* Permite apilar el número y el nombre */
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 2px solid #0edc39;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.puesto small {
+  font-size: 10px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
     .puesto:hover {
       background: #0cc432;
